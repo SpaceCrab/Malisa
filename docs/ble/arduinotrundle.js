@@ -63,6 +63,6 @@ export class ArduinoTrundleWheel extends BleDevice {
          * TODO find out how the trundle wheel data looks like and how to handle it 
          * TODO return the result 
          */
-      console.log(value)
+      console.log("received data")
     }
 }
