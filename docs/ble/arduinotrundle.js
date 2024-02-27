@@ -1,4 +1,4 @@
-import { BleDevice } from "./bledevice";
+import { BleDevice } from "./bledevice.js";
 
 /**
  * Trundle wheel with arduino 
