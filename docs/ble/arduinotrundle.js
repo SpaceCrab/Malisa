@@ -21,23 +21,21 @@ export class ArduinoTrundleWheel extends BleDevice {
      * @param {string} namePrefix
      * @param {ATWcallback} atwcallback
      */
-    constructor(namePrefix, serviceName, characteristicName, atwcallback){
+    constructor(namePrefix, atwcallback){
         super()
         this.atwcallback = atwcallback
         this.namePrefix = namePrefix
-        this.serviceName = serviceName
-        this.characteristicName = characteristicName
     }
 
     async connect () {
-        return super.connect(this.namePrefix, this.serviceName, this.characteristicName)
+        return super.connect(this.namePrefix, '4fafc201-1fb5-459e-8fcc-c5c9c331914b', 'beb5483e-36e1-4688-b7f5-ea07361b26a8')
     }
     /**
      * Starts trundle wheel distance measurements
      * @returns {PromiseLike}
      */
     async startNotificationsATWmeasurement(){
-        return this.startNotifications('atw_measurement', (event) => {
+        return this.startNotifications('beb5483e-36e1-4688-b7f5-ea07361b26a8', (event) => {
             const value = event.target.value
             const atw_measurement = this.parseATW(value)
             this.atwcallback(atw_measurement)
@@ -49,7 +47,7 @@ export class ArduinoTrundleWheel extends BleDevice {
      * @returns {PromiseLike} 
      */
     async stopNotificationsATWmeasurments (){
-        return this.stopNotifications('atw_measurements')
+        return this.stopNotifications('beb5483e-36e1-4688-b7f5-ea07361b26a8')
     }
 
     /**
@@ -58,6 +56,11 @@ export class ArduinoTrundleWheel extends BleDevice {
      * @returns {ATWMeasurement}
      */
 
+    /**
+     * 
+     * @param {DataView} value
+     * @returns {ATWMeasurement} 
+     */
     parseATW (value){
         /**
          * TODO find out how the trundle wheel data looks like and how to handle it 
