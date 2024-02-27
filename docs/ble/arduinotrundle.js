@@ -30,7 +30,7 @@ export class ArduinoTrundleWheel extends BleDevice {
     }
 
     async connect () {
-        console.log 'connecting ATW'
+        console.log "connecting ATW"
         return super.connect(this.namePrefix, this.serviceName, this.characteristicName)
     }
     /**
