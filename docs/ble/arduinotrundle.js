@@ -55,17 +55,29 @@ export class ArduinoTrundleWheel extends BleDevice {
      * @param {DataView} value - bytes as received by the sensor
      * @returns {ATWMeasurement}
      */
-
-    /**
-     * 
-     * @param {DataView} value
-     * @returns {ATWMeasurement} 
-     */
     parseATW (value){
+        /**
+         *  @type{ATWMeasurement}
+         */
+        let result = {}
+
+        value = value.buffer ? value : new DataView(value)
+
+        let offset = 0
+        let flags = value.getUint8(offset)
+
+        let hasWheelRevolutions = (flags & 0x1) != 0 // Wheel Revolution Data Present bit
+
+        offset += 1
+
+        console.log('has TrundleWheel', hasWheelRevolutions)
+
+        result.cumulativeWheelRevolutions = value.getUint32(offset, /*littleEndian=*/ true)
         /**
          * TODO find out how the trundle wheel data looks like and how to handle it 
          * TODO return the result 
          */
-      console.log("received data")
+
+
     }
 }
