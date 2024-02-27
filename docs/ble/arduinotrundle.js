@@ -29,6 +29,9 @@ export class ArduinoTrundleWheel extends BleDevice {
         this.characteristicName = characteristicName
     }
 
+    async connect () {
+        return super.connect(this.namePrefix, this.serviceName, this.characteristicName)
+    }
     /**
      * Starts trundle wheel distance measurements
      * @returns {PromiseLike}
