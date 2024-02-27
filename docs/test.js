@@ -75,7 +75,7 @@ const CSCsensor = new CyclingSpeedCadenceSensor('BK3', (meas) => {
     }
 })
 
-const ATWsensor = new ArduinoTrundleWheel('ESP32', ':6F:28:7B:DE:A2', '4fafc201-1fb5-459e-8fcc-c5c9c331914b', 'beb5483e-36e1-4688-b7f5-ea07361b26a8', (meas) => {
+const ATWsensor = new ArduinoTrundleWheel('ESP32', '4fafc201-1fb5-459e-8fcc-c5c9c331914b', 'beb5483e-36e1-4688-b7f5-ea07361b26a8', (meas) => {
     /**
      * TODO look up what needs to be done here 
      */
