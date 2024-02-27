@@ -21,10 +21,12 @@ export class ArduinoTrundleWheel extends BleDevice {
      * @param {string} namePrefix
      * @param {ATWcallback} atwcallback
      */
-    constructor(namePrefix, atwcallback){
+    constructor(namePrefix, serviceName, characteristicName, atwcallback){
         super()
         this.atwcallback = atwcallback
         this.namePrefix = namePrefix
+        this.serviceName = serviceName
+        this.characteristicName = characteristicName
     }
 
     /**
@@ -55,8 +57,8 @@ export class ArduinoTrundleWheel extends BleDevice {
 
     parseATW (value){
         /**
-         * TODO: find out how the trundle wheel data looks like and how to handle it 
-         * TODO: return the result 
+         * TODO find out how the trundle wheel data looks like and how to handle it 
+         * TODO return the result 
          */
     }
 }

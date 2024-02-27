@@ -4,16 +4,19 @@ import orientation from './phone/orientation.js'
 import { HeartRateSensor } from './ble/heartratesensor.js'
 import { RunningSpeedCadenceSensor } from './ble/rscsensor.js'
 import { CyclingSpeedCadenceSensor } from './ble/cscsensor.js'
+import { ArduinoTrundleWheel } from './ble/arduinotrundle.js'
 
 const connectRSCBtn = document.getElementById('connectRSCBtn')
 const connectCSCBtn = document.getElementById('connectCSCBtn')
 const connectHRBtn = document.getElementById('connectHRBtn')
+const connectATWbtn = document.getElementById('connectATWbtn')
 const startButton = document.getElementById('startBtn')
 const mainText = document.getElementById('mainText')
 const subText = document.getElementById('subText')
 const hrText = document.getElementById('hrText')
 const rscText = document.getElementById('rscText')
 const cscText = document.getElementById('cscText')
+const atwText = document.getElementById('atwText')
 const testNameInput = document.getElementById('testNameInput')
 
 
@@ -28,7 +31,8 @@ const initData = function () {
         orientation: [],
         heartRate: [],
         runningCadence: [],
-        cyclingCadence: []
+        cyclingCadence: [],
+        distance: []
     }
 }
 
@@ -69,6 +73,13 @@ const CSCsensor = new CyclingSpeedCadenceSensor('BK3', (meas) => {
     if (testRunning) {
         testData.cyclingCadence.push(meas)
     }
+})
+
+const ATWsensor = new ArduinoTrundleWheel('24:6F:28:7B:DE:A2', '4fafc201-1fb5-459e-8fcc-c5c9c331914b', 'beb5483e-36e1-4688-b7f5-ea07361b26a8', (meas) => {
+    console.log(meas)
+    /**
+     * TODO look up what needs to be done here 
+     */
 })
 
 connectHRBtn.addEventListener('click', async () => {
@@ -118,6 +129,21 @@ connectCSCBtn.addEventListener('click', async () => {
         if (!CSCsensor.isConnected()) {
             connectCSCBtn.textContent = "Connect Cycling sensor"
             rscText.textContent = " "
+        }
+    }
+})
+
+connectATWbtn.addEventListener('click', async () => {
+    if(!ATWsensor.isConnected()){
+        await ATWsensor.connect()
+        if (ATWsensor.isConnected()) {
+            ATWsensor.startNotificationsATWmeasurement()
+            connectATWbtn.textContent = "Disconnect Trundle Wheel"
+        }
+    } else {
+        ATWsensor.disconnect()
+        if(!ATWsensor.isConnected()) {
+            connectATWbtn.textContent = "Connect Trundle Wheel"
         }
     }
 })
