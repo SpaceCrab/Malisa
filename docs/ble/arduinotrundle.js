@@ -62,9 +62,13 @@ export class ArduinoTrundleWheel extends BleDevice {
          */
         let result = {}
 
+        let offset = 0
+        
         value = value.buffer ? value : new DataView(value)
 
         result.cumulativeWheelRevolutions = value.getUint32(offset, /*littleEndian=*/ true)
+
+        offset += 4
 
         const timestamp = value.getUint16(offset, /*littleEndian=*/ true)
 
