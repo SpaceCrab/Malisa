@@ -8,6 +8,7 @@ export class ArduinoTrundleWheel extends BleDevice {
     /**
      * @typedef {Object} ATWMeasurement - arduino trundlewheel measurement object
      * @property [number] cumulativeWheelRevolutions - number of revolutions of the trundlewheel
+     * @property [number] lastWheelEventTime - time when the last revolution was detected
      * 
      */
 
@@ -63,16 +64,13 @@ export class ArduinoTrundleWheel extends BleDevice {
 
         value = value.buffer ? value : new DataView(value)
 
-        let offset = 0
-        let flags = value.getUint8(offset)
-
-        let hasWheelRevolutions = (flags & 0x1) != 0 // Wheel Revolution Data Present bit
-
-        offset += 1
-
-        console.log('has TrundleWheel', hasWheelRevolutions)
-
         result.cumulativeWheelRevolutions = value.getUint32(offset, /*littleEndian=*/ true)
+
+        const timestamp = value.getUint16(offset, /*littleEndian=*/ true)
+
+        result.lastWheelEventTime = (timestamp / 1024) * 1000 // convert to ms
+
+        offset += 2;
 
         return result
         /**
