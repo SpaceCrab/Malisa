@@ -75,10 +75,17 @@ const CSCsensor = new CyclingSpeedCadenceSensor('BK3', (meas) => {
     }
 })
 
+let firstTrundleRev = -1
 const ATWsensor = new ArduinoTrundleWheel('ESP32', (meas) => {
     /**
      * TODO look up what needs to be done here 
      */
+    if(firstTrundleRev == -1) firstTrundleRev = meas.cumulativeWheelRevolutions
+
+    let revs = meas.cumulativeWheelRevolutions - firstTrundleRev
+    meas.cumulativeWheelRevolutions = revs
+
+    atwText.textContent = "Walked: " + revs + " meters"
     if (testData && testData.startTs) {
         meas.msFromStart = new Date().getTime() - testData.startTs.getTime()
     }
