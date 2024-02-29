@@ -196,6 +196,8 @@ let doTest = async function () {
 
         // reset csc revolutions counter
         firstCSCrevolutions = -1
+        //reset trundle revolutions counter
+        firstTrundleRev = -1
 
         // start acquiring IMU signals
         motion.startNotifications((data) => {
