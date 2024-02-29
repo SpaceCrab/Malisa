@@ -70,12 +70,6 @@ export class ArduinoTrundleWheel extends BleDevice {
 
         console.log(result.cumulativeWheelRevolutions)
 
-        offset += 4
-
-        const timestamp = value.getUint16(offset, /*littleEndian=*/ true)
-
-        result.lastWheelEventTime = (timestamp / 1024) * 1000 // convert to ms
-
         offset += 2;
 
         return result

@@ -79,8 +79,13 @@ const ATWsensor = new ArduinoTrundleWheel('ESP32', '4fafc201-1fb5-459e-8fcc-c5c9
     /**
      * TODO look up what needs to be done here 
      */
+    if (testData && testData.startTs) {
+        meas.msFromStart = new Date().getTime() - testData.startTs.getTime()
+    }
+    if (testRunning) {
+        testData.distance.push(meas)
+    }
 
-    testData.distance.push(meas)
 })
 
 connectHRBtn.addEventListener('click', async () => {
