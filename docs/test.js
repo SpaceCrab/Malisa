@@ -82,14 +82,14 @@ const ATWsensor = new ArduinoTrundleWheel('ESP32', (meas) => {
      */
     if(firstTrundleRev == -1) firstTrundleRev = meas.cumulativeWheelRevolutions
 
-    let revs = meas.cumulativeWheelRevolutions - firstTrundleRev
-    meas.cumulativeWheelRevolutions = revs
 
     atwText.textContent = "Walked: " + revs + " meters"
     if (testData && testData.startTs) {
         meas.msFromStart = new Date().getTime() - testData.startTs.getTime()
     }
     if (testRunning) {
+        let revs = meas.cumulativeWheelRevolutions - firstTrundleRev
+        meas.cumulativeWheelRevolutions = revs
         testData.distance.push(meas)
     }
 

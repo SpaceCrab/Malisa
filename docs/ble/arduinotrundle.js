@@ -71,10 +71,5 @@ export class ArduinoTrundleWheel extends BleDevice {
         console.log(result.cumulativeWheelRevolutions)
 
         return result
-        /**
-         * TODO find out how the trundle wheel data looks like and how to handle it 
-         * TODO return the result 
-         */
-
     }
 }
